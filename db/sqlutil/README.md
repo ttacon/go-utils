@@ -11,8 +11,8 @@ is not easily available. This collection of functions drastically
 simplifies the retreival of this information, as the following code
 demonstrates.
 
-Currently this has only been tested with MySQL, but sqlite will be tested soon.
-(I'll also be adding a Postgres version soon, but that will be a little different).
+Currently this has only been tested with MySQL, but it will be tested with MariaDB soon (should work).
+(I'll also be adding Postgres and sqlite versions soon, but those will be a little different).
 
 Usage
 =====
