@@ -81,3 +81,24 @@ func (s SqlUtil) ShowTables(database string) ([]string, error) {
 	}
 	return tables, nil
 }
+
+func (s SqlUtil) ShowDatabases() ([]string, error) {
+	rows, err := s.db.Query("show databases")
+	if err != nil {
+		return nil, err
+	}
+
+	var (
+		databases    []string
+		databaseName string
+	)
+
+	for rows.Next() {
+		err = rows.Scan(&databaseName)
+		if err != nil {
+			return nil, err
+		}
+		databases = append(databases, databaseName)
+	}
+	return databases, nil
+}
