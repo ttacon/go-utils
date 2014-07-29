@@ -14,6 +14,17 @@ type SqlUtil struct {
 	db *sql.DB
 }
 
+// ColumnInfo describes the six fields of information
+// for a column in a SQL table.
+type ColumnInfo struct {
+	Field,
+	Type,
+	Null,
+	Key,
+	Default,
+	Extra string
+}
+
 // New returns a SqlUtil which uses the given db connection to
 // communicate with the desired database host.
 func New(dbConn *sql.DB) SqlUtil {
@@ -46,17 +57,6 @@ func (s SqlUtil) DescribeTable(tableName string) ([]ColumnInfo, error) {
 		})
 	}
 	return columns, nil
-}
-
-// ColumnInfo describes the six fields of information
-// for a column in a SQL table.
-type ColumnInfo struct {
-	Field,
-	Type,
-	Null,
-	Key,
-	Default,
-	Extra string
 }
 
 // ShowTables returns a slice of the names of all the tables
