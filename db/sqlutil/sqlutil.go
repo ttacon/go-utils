@@ -15,7 +15,7 @@ func New(dbConn *sql.DB) SqlUtil {
 	}
 }
 
-func (s SqlUtil) Describe(tableName string) ([]ColumnInfo, error) {
+func (s SqlUtil) DescribeTable(tableName string) ([]ColumnInfo, error) {
 	rows, err := s.db.Query(fmt.Sprintf("describe %s", tableName))
 	if err != nil {
 		return nil, err
@@ -54,4 +54,30 @@ type ColumnInfo struct {
 	Key,
 	Default,
 	Extra string
+}
+
+func (s SqlUtil) ShowTables(database string) ([]string, error) {
+	var query = "show tables"
+	if len(database) > 0 {
+		query = fmt.Sprintf("show tables in %s", database)
+	}
+
+	rows, err := s.db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	var (
+		tables    []string
+		tableName string
+	)
+
+	for rows.Next() {
+		err = rows.Scan(&tableName)
+		if err != nil {
+			return nil, err
+		}
+		tables = append(tables, tableName)
+	}
+	return tables, nil
 }

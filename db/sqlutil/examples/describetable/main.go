@@ -34,7 +34,7 @@ func main() {
 	}
 
 	sqlUtil := sqlutil.New(db)
-	cols, err := sqlUtil.Describe(*table)
+	cols, err := sqlUtil.DescribeTable(*table)
 	if err != nil {
 		fmt.Printf("failed to describe table %q, err: %v\n", *table, err)
 		return
